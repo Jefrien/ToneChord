@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layoutConChordsInicio"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/misChords"
+            android:background="@color/colorFondoGrisClaro"
+            android:textColor="@color/colorTextoGrisMedioOscuro"
+            android:textAllCaps="true"
+            android:padding="3dp"
+            android:textSize="14sp"
+            android:id="@+id/labelMisChordInicioFragment"
+
+            />
+
+        <android.support.v7.widget.RecyclerView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/recicladorInicioFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="3dp"
+            android:scrollbars="vertical"
+            android:layout_below="@id/labelMisChordInicioFragment"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>

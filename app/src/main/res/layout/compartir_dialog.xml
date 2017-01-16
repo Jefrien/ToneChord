@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <RelativeLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:padding="24dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/compartir_chord_title"
+            android:id="@+id/titulo"
+            android:layout_marginBottom="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textAppearance="?attr/textAppearanceSmallPopupMenu"
+            android:text="@string/enviar_por_email"
+            android:layout_below="@+id/titulo"
+            android:id="@+id/descripcion"
+            android:textColor="@color/colorTextoGrisMedioOscuro"
+            />
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/wrapperNewPassConfirm"
+            android:layout_margin="5dp"
+            android:layout_below="@id/descripcion"
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:id="@+id/txtCorreoCompartir"
+                android:hint="@string/txt_correo_compartir_hint"
+                android:inputType="textWebEmailAddress" />
+
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme.Button.Gray"
+            android:text="@string/enviar_por_email"
+            android:id="@+id/btnEnviarCompartir"
+            android:layout_below="@id/wrapperNewPassConfirm"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/linea"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/btnEnviarCompartir"
+            android:background="#e6e6e6"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textAppearance="?attr/textAppearanceSmallPopupMenu"
+            android:text="@string/copia_compartir"
+            android:layout_below="@+id/linea"
+            android:id="@+id/descripcion2"
+            android:textColor="@color/colorTextoGrisMedioOscuro"
+            />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/wrapperCopiaYPegaCompartir"
+            android:layout_margin="5dp"
+            android:layout_below="@id/descripcion2"
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:id="@+id/txtCopyPegaCompartir"
+                android:hint="Codigo chord"
+                android:inputType="textWebEmailAddress" />
+
+        </android.support.design.widget.TextInputLayout>
+
+    </RelativeLayout>
+</ScrollView>

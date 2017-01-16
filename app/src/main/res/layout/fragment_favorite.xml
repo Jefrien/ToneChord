@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragmentFavorite"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layoutConChordsFav"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/misChordsFavoritos"
+            android:background="@color/colorFondoGrisClaro"
+            android:textColor="@color/colorTextoGrisMedioOscuro"
+            android:textAllCaps="true"
+            android:padding="3dp"
+            android:textSize="14sp"
+            android:id="@+id/labelMisChordFavFragment"
+
+            />
+
+
+
+        <android.support.v7.widget.RecyclerView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/recicladorFavFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="3dp"
+            android:scrollbars="vertical"
+            android:layout_below="@id/labelMisChordFavFragment"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "729431960504",
+    "firebase_url": "https://tonechord-ae558.firebaseio.com",
+    "project_id": "tonechord-ae558",
+    "storage_bucket": "tonechord-ae558.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729431960504:android:5c37edc7c7cc35d2",
+        "android_client_info": {
+          "package_name": "com.jefrienalvizures.tonechord"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "729431960504-5eslmlj6034l198rp9sr913bfb2e19fb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jefrienalvizures.tonechord",
+            "certificate_hash": "3DB2CD781E10B503F6FDF68E7CF52CCD4298B86D"
+          }
+        },
+        {
+          "client_id": "729431960504-fe307v7h33huu9mj5iuusk07kmago5i5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jefrienalvizures.tonechord",
+            "certificate_hash": "3938BE80C4799075F6336E88A27B1D76ED8D805F"
+          }
+        },
+        {
+          "client_id": "729431960504-n8pqglv4mbos3sf0vljtm5bho3c5h298.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkdBwibNFhb-dCj8Y6M6TnkG4ITWQ7lfc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "729431960504-n8pqglv4mbos3sf0vljtm5bho3c5h298.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

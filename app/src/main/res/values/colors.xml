@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ef7716</color>
+    <color name="colorPrimaryDark">#ca6512</color>
+    <color name="colorAccent">#ed964f</color>
+    <color name="colorWhite">#fff</color>
+    <color name="colorAccentLight">#ffb579</color>
+    <color name="colorHeaderChord">#fff0d7</color>
+    <color name="colorPrimaryButtonFocus">#f18731</color>
+    <color name="colorPrimaryButtonPressed">#ffa861</color>
+    <color name="colorPrimaryButtonWarningFocus">#af171b</color>
+    <color name="colorPrimaryButtonWarningPressed">#ff6164</color>
+    <color name="colorTextoGrisClaro">#f4f4f4</color>
+    <color name="colorFondoGrisClaro">#e9e9e9</color>
+    <color name="colorTextoGrisMedioOscuro">#8e8e8e</color>
+
+    <color name="eliminada">#C17171</color>
+    <color name="acorde">#009FEF</color>
+    <color name="letra">#379234</color>
+    <color name="blanca">#C0BB26</color>
+
+    <color name="btnBlueNormal">#00abd1</color>
+    <color name="btnBluePressed">#79d2e6</color>
+    <color name="btnGrayNormal">#ececec</color>
+    <color name="btnGrayPressed">#b3b3b3</color>
+    <color name="btnGrayText">#7c7c7c</color>
+</resources>

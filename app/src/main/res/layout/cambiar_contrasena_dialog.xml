@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <RelativeLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:padding="24dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/edit_password"
+            android:id="@+id/titulo"
+            android:layout_marginBottom="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/wrapperOldPass"
+            android:layout_margin="5dp"
+            android:layout_below="@id/titulo"
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:id="@+id/txtOldPass"
+                android:hint="@string/txt_contraseña_antigua"
+                android:inputType="textPassword" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/wrapperNewPass"
+            android:layout_margin="5dp"
+            android:layout_below="@id/wrapperOldPass"
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:id="@+id/txtNewPass"
+                android:hint="@string/txt_contraseña_nueva"
+                android:inputType="textPassword" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/wrapperNewPassConfirm"
+            android:layout_margin="5dp"
+            android:layout_below="@id/wrapperNewPass"
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:id="@+id/txtNewPassConfirm"
+                android:hint="@string/txt_confirma_contraseña_nueva"
+                android:inputType="textPassword" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hecho"
+            android:id="@+id/btnEditPassword"
+            style="@style/AppTheme.Button"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/wrapperNewPassConfirm"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            />
+
+
+
+    </RelativeLayout>
+</ScrollView>

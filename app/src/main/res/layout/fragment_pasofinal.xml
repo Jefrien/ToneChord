@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+<LinearLayout
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="10dp"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/detalles"
+        android:id="@+id/tituloInfo"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_alignParentTop="true"
+        android:textAllCaps="true"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/labelTitulo"
+        android:text="@string/tituloLabel"
+        android:textAllCaps="true"
+        android:textSize="14dp"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="5dp"
+        android:background="#ededed"/>
+
+    <EditText
+        android:id="@+id/tituloPasoFinal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/titulo"
+        />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/labelAutor"
+        android:text="@string/autorLabel"
+        android:textAllCaps="true"
+        android:textSize="14dp"
+        android:inputType="text"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="5dp"
+        android:background="#ededed"/>
+
+    <EditText
+        android:id="@+id/autorPasoFinal"
+        android:layout_width="match_parent"
+        android:inputType="text"
+        android:layout_height="wrap_content"
+        android:hint="@string/autor"
+
+        />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/labelPrivacidad"
+        android:text="@string/privacidadLabel"
+        android:textAllCaps="true"
+        android:textSize="14dp"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="5dp"
+        android:background="#ededed"/>
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/switchPublico"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textOff=""
+        android:text="Tu Chord es Publico"
+        android:textAllCaps="true"
+        android:background="@android:color/transparent"
+        android:textColor="@color/colorPrimary"
+        android:textOn=""
+        android:button="@null"
+        android:padding="20dp"
+        android:checked="false" />
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/switchAnonimo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textOff=""
+        android:text="Creador anonimo "
+        android:textAllCaps="true"
+        android:background="@android:color/transparent"
+        android:textColor="@color/colorPrimary"
+        android:textOn=""
+        android:button="@null"
+        android:padding="20dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.Button"
+        android:id="@+id/button_siguiente_chord"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/button_siguiente"
+        />
+
+</LinearLayout>
+</ScrollView>

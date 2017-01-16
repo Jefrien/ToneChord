@@ -1,0 +1,42 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_menu_inicio"
+            android:icon="@drawable/home"
+            android:title="@string/drawer_inicio"/>
+        <item
+            android:id="@+id/drawer_menu_nueva_letra"
+            android:icon="@drawable/file_music"
+            android:title="@string/drawer_nueva_letra"/>
+        <item
+            android:id="@+id/drawer_menu_perfil"
+            android:icon="@drawable/face_profile"
+            android:title="@string/drawer_perfil"/>
+
+        <item
+            android:id="@+id/drawer_menu_inbox"
+            android:icon="@drawable/inbox_icon"
+            android:title="@string/drawer_inbox"/>
+
+        <item
+            android:id="@+id/drawer_menu_del_publicidad"
+            android:icon="@drawable/close_outline"
+            android:title="@string/drawer_eliminar_publicidad"/>
+        <item
+            android:id="@+id/drawer_menu_donar"
+            android:icon="@drawable/gift"
+            android:title="@string/drawer_donar"/>
+
+        <item
+            android:id="@+id/drawer_menu_acercade"
+            android:icon="@drawable/information"
+            android:title="@string/drawer_acerca_de"/>
+
+        <item
+            android:id="@+id/drawer_menu_logout"
+            android:icon="@drawable/logout"
+            android:title="@string/cerrar_sesion"/>
+    </group>
+
+
+</menu>

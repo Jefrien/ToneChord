@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="5dp"
+    android:layout_height="match_parent">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.Button"
+        android:id="@+id/button_siguiente_editar_chord"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/button_siguiente"
+        />
+
+<HorizontalScrollView
+    android:layout_width="match_parent"
+    android:layout_below="@+id/button_siguiente_editar_chord"
+    android:fillViewport="true"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/editor"
+        android:gravity="start|top"
+        android:fitsSystemWindows="true"
+        android:scrollHorizontally="true"
+        android:inputType="textMultiLine|textNoSuggestions"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/button_siguiente_editar_chord"
+        android:layout_alignStart="@+id/button_siguiente_editar_chord" />
+</HorizontalScrollView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textoTemp"
+        android:visibility="gone"/>
+
+    <!--<WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/button_siguiente"
+        android:id="@+id/webViewxD"
+        >
+
+
+    </WebView>-->
+
+</RelativeLayout>

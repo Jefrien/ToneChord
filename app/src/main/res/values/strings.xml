@@ -1,0 +1,139 @@
+<resources>
+    <!-- GENERAL -->
+    <string name="facebook_app_id">315806625420047</string>
+    <!--
+    <string name="banner_ad_unit_id">ca-app-pub-4386412746374485/1314914362</string>
+-->
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="donation_paypal_item">Donation</string>
+
+    <string name="app_name">ToneChord</string>
+    <string name="title_activity_login">ToneChord</string>
+
+    <!-- TEXTOS DE AYUDA -->
+    <string name="ayuda_nueva_letra">ayuda</string>
+    <string name="info">información</string>
+
+    <!-- BOTONES - BUTTONS -->
+    <string name="button_iniciar_sesion">INICIAR SESIÓN</string>
+    <string name="button_registrar">REGISTRAR</string>
+    <string name="button_siguiente">SIGUIENTE</string>
+    <string name="button_si">SI</string>
+    <string name="button_no">NO</string>
+
+    <!-- INPUTS -->
+    <string name="txt_correo">Correo electrónico</string>
+    <string name="txt_contraseña">Contraseña</string>
+    <string name="txt_nombre_completo">Nombre completo</string>
+
+    <!-- TEXTOS - TEXTS-->
+    <string name="no_cuenta">No tienes cuenta? Crea una!</string>
+    <string name="crear_cuenta_mayus">CREAR CUENTA</string>
+    <string name="regresar_pregunta">REGRESAR ?</string>
+    <string name="hecho">hecho</string>
+    <string name="selecciona_tipo">TIPOS</string>
+    <string name="menu_limpiar">Limpiar</string>
+    <string name="titulo">Ingresa el titulo</string>
+    <string name="autor">Ingresa el autor de tu chord</string>
+    <string name="detalles">DETALLES DE TU CHORD</string>
+    <string name="tituloLabel">titulo</string>
+    <string name="autorLabel">AUTOR</string>
+    <string name="privacidadLabel">privacidad</string>
+    <string name="estadoDefaultUsuario">Hola, soy nuevo en tonechord :)</string>
+
+
+    <!-- TIPOS -->
+    <string name="acorde">acorde</string>
+    <string name="letra">letra</string>
+    <string name="blanca">en blanco</string>
+    <string name="eliminada">eliminada</string>
+    <string name="copiaAlgoPrimero">Tienes que copiar algo primero</string>
+
+    <!-- MENUS -->
+    <string name="drawer_inicio">Inicio</string>
+    <string name="drawer_nueva_letra">Nueva letra</string>
+    <string name="drawer_perfil">Perfil</string>
+    <string name="drawer_acerca_de">Acerca de</string>
+    <string name="drawer_donar">Donar</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="drawer_eliminar_publicidad">Eliminar publicidad</string>
+
+    <string name="menu_pegar">Pegar</string>
+    <string name="menu_ayuda">Ayuda</string>
+    <string name="menu_agregar_amigo">Agregar</string>
+
+
+    <!-- TEXTOS GRANDES -->
+    <string name="ayuda_nueva_letra_txt">Hola, ingresa la letra que desees en el cuadro
+                                         de abajo. Si tienes problemas pegando algun texto
+                                         te invitamos a que uses el boton PEGAR que se
+                                         encuentra en el menu de arriba en lugar de el pegar
+                                         de tu dispositivo.</string>
+    <string name="info_identificar_letra">
+        Hola, es muy probable que necesites verificar la detección de las lineas de tu letra
+        , hicimos nuestro sistema de detección para facilitar este trabajo para ti, pero
+        siempre es mejor que revises ya que algo podria estar mal.
+
+        Para saber el significado de las letras a la izquierda presiona en el icono de
+        ayuda del menu superior :)
+    </string>
+    <string name="ayuda_identificar_letra">
+        Hola, estos son los significados de las letras que aparecen a la izquierda:
+        A = Acordes, L = Letra, E = Eliminada, B = Linea en blanco. Sabiendo esto
+        nesecitamos que selecciones el tipo correcto (si aun no esta) de cada linea
+        para que podamos configurar bien tu Chord.
+    </string>
+    <string name="version_app">Tonechord %1$s</string>
+    <string name="about_app">Desarrollada por Jefrien Alvizures.</string>
+    <string name="contact_email">Correo: jefrienalvizures@gmail.com</string>
+    <string name="contact_fb">Facebook: armando1262013</string>
+
+    <string name="vacioError">No puede estar vacio :(</string>
+    <string name="favoritos">favoritos</string>
+    <string name="misChords">mis chords</string>
+    <string name="me_gusta">Me gusta</string>
+    <string name="no_me_gusta">No me gusta</string>
+    <string name="misChordsFavoritos">mis chords favoritos</string>
+    <string name="chordsOnline">chords en la red</string>
+    <string name="edit_profile">Editar Perfil</string>
+    <string name="txt_estado">Estado</string>
+    <string name="selecciona_foto">galeria</string>
+    <string name="tomar_foto">camara</string>
+    <string name="subir_foto">Subir</string>
+    <string name="cancelar">cancelar</string>
+    <string name="edit_photo">Editar foto</string>
+    <string name="donate_paypal">Donar con PayPal</string>
+    <string name="txt_nombre_completo_opcional">Nombre</string>
+    <string name="cantidad_donar">Monto en USD *</string>
+    <string name="button_donar">Donar</string>
+    <string name="txt_correo_opcional">Correo electrónico *</string>
+    <string name="edit_password">Cambiar contraseña</string>
+    <string name="txt_contraseña_antigua">Contraseña antigua</string>
+    <string name="txt_contraseña_nueva">Contraseña nueva</string>
+    <string name="txt_confirma_contraseña_nueva">Confirma contraseña</string>
+    <string name="eliminar_cuenta">¿ Eliminar cuenta ?</string>
+    <string name="eliminar_cuenta_razon">¿ Porque nos dejas ?</string>
+    <string name="eliminar_cuenta_razon_descripcion">Deja tu comentario:</string>
+    <string name="enviar_comentario">Enviar comentario</string>
+    <string name="hasta_pronto">Hasta pronto</string>
+    <string name="titulo_detalle">TITULO</string>
+    <string name="usuario_detalle">USUARIO</string>
+    <string name="editar_chord">editar chord</string>
+    <string name="eliminar_chord">eliminar chord</string>
+    <string name="compartir_chord">compartir chord</string>
+    <string name="editar_linea">Editar linea</string>
+    <string name="editar">Editar</string>
+    <string name="escribeContrasena">Escribe tu contraseña</string>
+    <string name="elimina">Eliminar</string>
+    <string name="compartir_chord_title">Compartir Chord</string>
+    <string name="enviar_por_email">Envialo por correo</string>
+    <string name="txt_correo_compartir_hint">Escribe un correo</string>
+    <string name="copia_compartir">Copia y pasa el codigo a tu amigo</string>
+    <string name="eliminar_chord_title">Eliminar Chord</string>
+    <string name="sin_conexion">Sin conexión</string>
+    <string name="no_tienes_conexion">No cuentas con conexión a internet</string>
+    <string name="drawer_inbox">Mensajes</string>
+    <string name="agregar_amigo">Agregar a mis amigos</string>
+
+
+</resources>

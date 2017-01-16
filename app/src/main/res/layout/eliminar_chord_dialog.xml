@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <RelativeLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:padding="24dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/eliminar_chord_title"
+            android:id="@+id/titulo"
+            android:layout_marginBottom="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textAppearance="?attr/textAppearanceSmallPopupMenu"
+            android:text="Esta acción no se puede revertir"
+            android:layout_below="@+id/titulo"
+            android:id="@+id/descripcion"
+            android:textColor="@color/colorTextoGrisMedioOscuro"
+            android:layout_marginBottom="20dp"
+            />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme.Button.Blue"
+            android:text="@string/cancelar"
+            android:layout_below="@+id/descripcion"
+            android:id="@+id/btnEliminarChordNo"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme.Button.Warning"
+            android:text="@string/elimina"
+            android:layout_below="@+id/btnEliminarChordNo"
+            android:id="@+id/btnEliminarChordSi"
+            />
+
+
+    </RelativeLayout>
+</ScrollView>

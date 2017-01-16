@@ -1,0 +1,64 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    card_view:cardCornerRadius="10dp"
+    card_view:cardElevation="0dp"
+    card_view:cardUseCompatPadding="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:id="@+id/imagen"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/item_chord_image"
+            android:scaleType="centerCrop"
+            android:layout_alignRight="@+id/cardview_chord_autor"
+            android:layout_alignEnd="@+id/cardview_chord_autor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="2">
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="jefrien@mail.com"
+            android:id="@+id/cardview_mensaje_de"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_toRightOf="@+id/imagen"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:layout_width="247dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/cardview_mensaje_txt"
+            android:layout_below="@+id/cardview_mensaje_de"
+            android:layout_toRightOf="@+id/imagen"
+            android:layout_marginLeft="5dp"
+            android:inputType="textMultiLine"
+            android:maxLines="1"
+            android:layout_weight="1"
+            android:gravity="top"
+            />
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
