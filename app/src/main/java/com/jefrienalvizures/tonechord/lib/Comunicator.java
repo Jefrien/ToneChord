@@ -20,6 +20,15 @@ public class Comunicator {
     private static String emailUser;
     private static Activity activity;
     private static boolean mensajesNuevos = false;
+    private static boolean internet;
+
+    public static boolean isInternet() {
+        return internet;
+    }
+
+    public static void setInternet(boolean internet) {
+        Comunicator.internet = internet;
+    }
 
     public static boolean isMensajesNuevos() {
         return mensajesNuevos;

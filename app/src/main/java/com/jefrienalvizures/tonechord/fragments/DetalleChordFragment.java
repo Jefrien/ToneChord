@@ -26,12 +26,17 @@ import com.jefrienalvizures.tonechord.bean.Response;
 import com.jefrienalvizures.tonechord.bean.Usuario;
 import com.jefrienalvizures.tonechord.events.FragmentEventChanged;
 import com.jefrienalvizures.tonechord.lib.BaseDeDatos;
+import com.jefrienalvizures.tonechord.lib.Comunicator;
 import com.jefrienalvizures.tonechord.lib.DialogoCreator;
 import com.jefrienalvizures.tonechord.lib.Dialogos;
 import com.jefrienalvizures.tonechord.lib.EventBus;
 import com.jefrienalvizures.tonechord.lib.GreenRobotEventBus;
 import com.jefrienalvizures.tonechord.lib.Objeto;
 import com.jefrienalvizures.tonechord.net.Conexion;
+
+import java.util.List;
+
+import javax.security.auth.login.LoginException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -85,7 +90,7 @@ public class DetalleChordFragment extends Fragment {
 
     @OnClick(R.id.btnDetalleEditar)
     public void btnEditar(){
-        if(verificoInternet()) {
+        if(Comunicator.isInternet()) {
             postEvent(2);
         } else {
             noInternetDialog();
@@ -99,7 +104,7 @@ public class DetalleChordFragment extends Fragment {
 
     @OnClick(R.id.btnDetalleEliminar)
     public void btnEliminar(){
-        if(verificoInternet()) {
+        if(Comunicator.isInternet()) {
             eliminarDialog();
         } else {
             noInternetDialog();
@@ -108,10 +113,20 @@ public class DetalleChordFragment extends Fragment {
 
     @OnClick(R.id.detalleChordUsuarioPerfil)
     public void verPerfil(){
-        Intent i = new Intent(getActivity(), UserProfileActivity.class);
-        i.putExtra("usuario",gson.toJson(usuarioChord));
-        startActivity(i);
-        getActivity().finish();
+        if(Comunicator.isInternet()) {
+            Intent i = new Intent(getActivity(), UserProfileActivity.class);
+            String[] datos = {
+                    String.valueOf(usuarioChord.getId()),
+                    usuarioChord.getName(),
+                    usuarioChord.getEmail(),
+                    usuarioChord.getImagen()
+            };
+            i.putExtra("usuario", datos);
+            Log.e("Usuario enviado", datos.length + "");
+            startActivity(i);
+        } else {
+            noInternetDialog();
+        }
     }
 
     private boolean verificoInternet(){

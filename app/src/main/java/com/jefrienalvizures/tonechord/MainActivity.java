@@ -6,7 +6,11 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebView;
+
+import com.jefrienalvizures.tonechord.interfaces.InterfaceMensajesNuevos;
+import com.jefrienalvizures.tonechord.interfaces.InterfaceServiceMensajes;
 import com.jefrienalvizures.tonechord.lib.BaseDeDatos;
+import com.jefrienalvizures.tonechord.servicios.MensajeService;
 
 public class MainActivity extends AppCompatActivity {
 

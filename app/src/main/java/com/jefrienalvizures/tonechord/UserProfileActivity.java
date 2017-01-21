@@ -1,5 +1,6 @@
 package com.jefrienalvizures.tonechord;
 
+import android.content.ClipData;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -13,9 +14,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.jefrienalvizures.tonechord.bean.Response;
+import com.jefrienalvizures.tonechord.bean.SolicitudDeAmistad;
 import com.jefrienalvizures.tonechord.bean.Usuario;
 import com.jefrienalvizures.tonechord.fragments.ChordUserProfileFragment;
 import com.jefrienalvizures.tonechord.fragments.CloudFragment;
@@ -23,6 +31,8 @@ import com.jefrienalvizures.tonechord.fragments.FavoriteFragment;
 import com.jefrienalvizures.tonechord.fragments.InfoUserProfileFragment;
 import com.jefrienalvizures.tonechord.fragments.InicioFragment;
 import com.jefrienalvizures.tonechord.fragments.SolicitudesFragment;
+import com.jefrienalvizures.tonechord.interfaces.InterfaceSolicitudChanged;
+import com.jefrienalvizures.tonechord.lib.BaseDeDatos;
 import com.jefrienalvizures.tonechord.lib.Comunicator;
 import com.jefrienalvizures.tonechord.lib.Dialogos;
 import com.jefrienalvizures.tonechord.net.Conexion;
@@ -48,6 +58,18 @@ public class UserProfileActivity extends AppCompatActivity {
     Dialogos dialogos;
     @Bind(R.id.toolbar_layout)
     CollapsingToolbarLayout ctl;
+    String[] datos;
+    MenuItem itemAddFriend;
+    int estadoRequest=0;
+    Usuario usuarioActual;
+    boolean isEnviada=false;
+
+    /** INTERFACES **/
+    private InterfaceSolicitudChanged listener;
+
+    public void setListener(InterfaceSolicitudChanged i){
+        this.listener = i;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +79,7 @@ public class UserProfileActivity extends AppCompatActivity {
         gson = new Gson();
         dialogos = new Dialogos(this);
         setupUserPerfil();
+        loadUser();
         GetDataProfileUser gdpu = new GetDataProfileUser();
         gdpu.execute();
         setupToolbar();
@@ -67,12 +90,19 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private void setupUserPerfil(){
         Bundle bundle = getIntent().getExtras();
-        try {
-            usuarioPerfil = gson.fromJson(bundle.getString("usuario"),Usuario.class);
-            getSupportActionBar().setTitle(usuarioPerfil.getName());
-            ctl.setTitle(usuarioPerfil.getName());
-            Comunicator.setUsuario(usuarioPerfil);
-        } catch (NullPointerException e){}
+
+
+        datos = bundle.getStringArray("usuario");
+        Log.e("Recibido json",datos.length+"");
+        for(String s:datos){
+            Log.e("String",s);
+        }
+        usuarioPerfil = new Usuario();
+        usuarioPerfil.setId(Integer.parseInt(datos[0]));
+        usuarioPerfil.setName(datos[1]);
+        usuarioPerfil.setEmail(datos[2]);
+        usuarioPerfil.setImagen(datos[3]);
+        ctl.setTitle(usuarioPerfil.getName());
     }
 
     private void setupToolbar() {
@@ -80,11 +110,52 @@ public class UserProfileActivity extends AppCompatActivity {
         final ActionBar ab = getSupportActionBar();
         if (ab != null) {
             // Poner ícono del drawer toggle
-            ab.setHomeAsUpIndicator(R.drawable.ic_menu);
             ab.setDisplayHomeAsUpEnabled(true);
 
         }
 
+    }
+
+    private void loadUser(){
+        usuarioActual = BaseDeDatos.getUsuario(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(
+                R.menu.menu_user_profile, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        itemAddFriend = menu.findItem(R.id.menu_perfil_add_friend);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                UserProfileActivity.this.finish();
+                break;
+            case R.id.menu_perfil_add_friend:
+                SetSolicitudEstatus setSolicitudEstatus = new SetSolicitudEstatus();
+
+                if(isEnviada) {
+                    isEnviada = !isEnviada;
+                    itemAddFriend.setIcon(R.drawable.ic_person_add_white);
+                   // Toast.makeText(this,"Solicitud de amistad enviada",Toast.LENGTH_SHORT).show();
+                } else {
+                    isEnviada = !isEnviada;
+                    itemAddFriend.setIcon(R.drawable.account_remove);
+                    //Toast.makeText(this,"Solicitud de amistad cancelada",Toast.LENGTH_SHORT).show();
+                }
+                setSolicitudEstatus.execute();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupTabIcons() {
@@ -96,8 +167,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(ChordUserProfileFragment.newInstance(), "CHORDS");
-        adapter.addFragment(InfoUserProfileFragment.newInstance(), "INFORMACIÓN");
+        adapter.addFragment(ChordUserProfileFragment.newInstance(datos), "CHORDS");
+        adapter.addFragment(InfoUserProfileFragment.newInstance(datos), "INFORMACIÓN");
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -174,6 +245,53 @@ public class UserProfileActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             imagenPerfil.setImageBitmap(imagen);
             dialogos.hideProgressDialog();
+            super.onPostExecute(aVoid);
+        }
+    }
+
+    class SetSolicitudEstatus extends AsyncTask<Void,Void,Void> {
+
+        String res;
+        Response response;
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            SolicitudDeAmistad solicitud = new SolicitudDeAmistad(
+                    0,
+                    usuarioActual.getId(),
+                    usuarioPerfil.getId(),
+                    1
+            );
+
+            try {
+                Log.e("Estado",""+isEnviada);
+                if(!isEnviada) {
+                    Log.e("LANZANDO","eliminar");
+                    res = Conexion.getInstancia().borrarSolicitudDeAmistad(solicitud);
+                } else {
+                    Log.e("LANZANDO","enviar");
+                    res = Conexion.getInstancia().enviarSolicitudDeAmistad(solicitud);
+                }
+                if (res != null) {
+                    response = gson.fromJson(res, Response.class);
+                }
+            } catch (NullPointerException e){
+
+            } catch (JsonSyntaxException e){
+
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            if(response!=null){
+                Toast.makeText(UserProfileActivity.this,
+                        response.getMessage(),Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(UserProfileActivity.this,
+                        "Ocurrio un error",Toast.LENGTH_SHORT).show();
+            }
             super.onPostExecute(aVoid);
         }
     }

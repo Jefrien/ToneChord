@@ -37,11 +37,15 @@ public class ChordUserProfileFragment extends Fragment {
     private AdapterCardViewChord adapter;
     private RecyclerView.LayoutManager lManager;
     List<Chord> items;
-    Usuario usuarioProfile;
+    Usuario usuario;
+    Gson gson = new Gson();
+    String[] datos;
 
-    public static ChordUserProfileFragment newInstance(){
+    public static ChordUserProfileFragment newInstance(String[] d){
         ChordUserProfileFragment f= new ChordUserProfileFragment();
-
+        Bundle bundle = new Bundle();
+        bundle.putStringArray("datos",d);
+        f.setArguments(bundle);
         return f;
     }
 
@@ -51,9 +55,23 @@ public class ChordUserProfileFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_chord_user_profile,
                 container,false);
         items = new ArrayList<>();
-        usuarioProfile = Comunicator.getUsuario();
+        setupInfoUser();
         setupRecycler(rootView);
+        setLista();
         return rootView;
+    }
+
+    private void setupInfoUser(){
+        try {
+            datos = getArguments().getStringArray("datos");
+            usuario = new Usuario();
+            usuario.setId(Integer.parseInt(datos[0]));
+            usuario.setName(datos[1]);
+            usuario.setEmail(datos[2]);
+            usuario.setImagen(datos[3]);
+        } catch (NullPointerException e){
+            Log.e("Excepcion","NullPointer: "+e.getStackTrace());
+        }
     }
 
     public void setupRecycler(View rootView){
@@ -94,7 +112,7 @@ public class ChordUserProfileFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            res = Conexion.getInstancia().cargarChordsPublicosById(usuarioProfile.getId());
+            res = Conexion.getInstancia().cargarChordsPublicosById(usuario.getId());
             if (res != null) {
                 if(!res.equals("-")) {
                     Gson gson = new Gson();

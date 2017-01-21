@@ -32,4 +32,9 @@
         <item name="android:background">@drawable/bg_button_gray_states</item>
         <item name="android:textColor">@color/btnGrayText</item>
     </style>
+
+    <style name="AppTheme.Button.NoBg" parent="AppTheme.Button">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
 </resources>

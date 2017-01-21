@@ -171,6 +171,7 @@ public class HomeActivity extends AppCompatActivity {
         switch (itemId) {
             // Si se presiona en SALIR
             case R.id.drawer_menu_logout:
+                stopService(new Intent(this,MensajeService.class));
                 new CerrarSesionTask().execute();
                 break;
             // Si se presiona en inicio, Es el default

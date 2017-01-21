@@ -134,6 +134,9 @@
     <string name="no_tienes_conexion">No cuentas con conexión a internet</string>
     <string name="drawer_inbox">Mensajes</string>
     <string name="agregar_amigo">Agregar a mis amigos</string>
+    <string name="responder_solicitud">Responder solicitud</string>
+    <string name="aceptar_amigo">Aceptar amigo</string>
+    <string name="rechazar_solicitud">Rechazar solicitud</string>
 
 
 </resources>

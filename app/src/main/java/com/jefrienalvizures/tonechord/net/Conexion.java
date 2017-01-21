@@ -7,6 +7,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.jefrienalvizures.tonechord.bean.Chord;
 import com.jefrienalvizures.tonechord.bean.Mensaje;
+import com.jefrienalvizures.tonechord.bean.SolicitudDeAmistad;
 import com.jefrienalvizures.tonechord.bean.Usuario;
 import com.jefrienalvizures.tonechord.lib.Objeto;
 
@@ -864,6 +865,47 @@ public class Conexion {
         return resultado;
     }
 
+    public String getNombreUsuarioById(int id){
+        String respuesta = "";
+        HttpURLConnection urlConnection=null;
+        try {
+            URL url = new URL(BASE_URL);
+            urlConnection = (HttpURLConnection) url.openConnection();
+
+
+            Log.e("JSON ENVIADO","{\"id\":\""+id+"\"}");
+
+            // Construir los datos a enviar
+            String data = "action=" + URLEncoder.encode("28","UTF-8")
+                    + "&data=" + URLEncoder.encode("{\"id\":\""+id+"\"}","UTF-8");
+
+            //Log.e("JSON USUSARIO",usuario.toJson());
+            urlConnection.setDoOutput(true);
+            urlConnection.setFixedLengthStreamingMode(data.getBytes().length);
+            urlConnection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+            OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
+
+            out.write(data.getBytes());
+            out.flush();
+            out.close();
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            BufferedReader  br = new BufferedReader(new InputStreamReader(in));
+            while(br.readLine() != null){
+                respuesta = respuesta+br.readLine();
+            }
+
+        } catch (MalformedURLException mue){
+
+        } catch (IOException e){
+
+        } finally {
+            if(urlConnection!=null)
+                urlConnection.disconnect();
+        }
+
+        return respuesta;
+    }
+
     /** CHORDS **/
 
     public String cargarChordsPublicosById(int id){
@@ -879,6 +921,208 @@ public class Conexion {
             // Construir los datos a enviar
             String data = "action=" + URLEncoder.encode("30","UTF-8")
                     + "&data=" + URLEncoder.encode("{\"id\":\""+id+"\"}","UTF-8");
+
+
+            urlConnection.setDoOutput(true);
+            urlConnection.setFixedLengthStreamingMode(data.getBytes().length);
+            urlConnection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+            OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
+
+            out.write(data.getBytes());
+            out.flush();
+            out.close();
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            BufferedReader  br = new BufferedReader(new InputStreamReader(in));
+            while(br.readLine() != null){
+                respuesta = respuesta+br.readLine();
+            }
+
+        } catch (MalformedURLException mue){
+
+        } catch (IOException e){
+
+        } finally {
+            if(urlConnection!=null)
+                urlConnection.disconnect();
+        }
+
+        return respuesta;
+    }
+
+    /** AMIGOS **/
+
+    public String borrarSolicitudDeAmistad(SolicitudDeAmistad solicitud){
+        String respuesta = "";
+        HttpURLConnection urlConnection=null;
+        try {
+            URL url = new URL(BASE_URL);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            String dataStr = solicitud.toJson();
+            Log.e("JSON ENVIADO",dataStr);
+
+            // Construir los datos a enviar
+            String data = "action=" + URLEncoder.encode("31","UTF-8")
+                    + "&data=" + URLEncoder.encode(dataStr,"UTF-8");
+
+
+            urlConnection.setDoOutput(true);
+            urlConnection.setFixedLengthStreamingMode(data.getBytes().length);
+            urlConnection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+            OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
+
+            out.write(data.getBytes());
+            out.flush();
+            out.close();
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            BufferedReader  br = new BufferedReader(new InputStreamReader(in));
+            while(br.readLine() != null){
+                respuesta = respuesta+br.readLine();
+            }
+
+        } catch (MalformedURLException mue){
+
+        } catch (IOException e){
+
+        } finally {
+            if(urlConnection!=null)
+                urlConnection.disconnect();
+        }
+
+        return respuesta;
+    }
+
+    public String enviarSolicitudDeAmistad(SolicitudDeAmistad solicitud){
+        String respuesta = "";
+        HttpURLConnection urlConnection=null;
+        try {
+            URL url = new URL(BASE_URL);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            String dataStr = solicitud.toJson();
+            Log.e("JSON ENVIADO",dataStr);
+
+            // Construir los datos a enviar
+            String data = "action=" + URLEncoder.encode("26","UTF-8")
+                    + "&data=" + URLEncoder.encode(dataStr,"UTF-8");
+
+
+            urlConnection.setDoOutput(true);
+            urlConnection.setFixedLengthStreamingMode(data.getBytes().length);
+            urlConnection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+            OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
+
+            out.write(data.getBytes());
+            out.flush();
+            out.close();
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            BufferedReader  br = new BufferedReader(new InputStreamReader(in));
+            while(br.readLine() != null){
+                respuesta = respuesta+br.readLine();
+            }
+
+        } catch (MalformedURLException mue){
+
+        } catch (IOException e){
+
+        } finally {
+            if(urlConnection!=null)
+                urlConnection.disconnect();
+        }
+
+        return respuesta;
+    }
+
+    public String getSolicitudesDeAmistad(int id){
+        String respuesta = "";
+        HttpURLConnection urlConnection=null;
+        try {
+            URL url = new URL(BASE_URL);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            String dataStr = "{\"id\":\""+id+"\"}";
+            Log.e("JSON ENVIADO",dataStr);
+
+            // Construir los datos a enviar
+            String data = "action=" + URLEncoder.encode("27","UTF-8")
+                    + "&data=" + URLEncoder.encode(dataStr,"UTF-8");
+
+
+            urlConnection.setDoOutput(true);
+            urlConnection.setFixedLengthStreamingMode(data.getBytes().length);
+            urlConnection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+            OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
+
+            out.write(data.getBytes());
+            out.flush();
+            out.close();
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            BufferedReader  br = new BufferedReader(new InputStreamReader(in));
+            while(br.readLine() != null){
+                respuesta = respuesta+br.readLine();
+            }
+
+        } catch (MalformedURLException mue){
+
+        } catch (IOException e){
+
+        } finally {
+            if(urlConnection!=null)
+                urlConnection.disconnect();
+        }
+
+        return respuesta;
+    }
+
+    public String aceptarSolicitudDeAmistad(int id){
+        String respuesta = "";
+        HttpURLConnection urlConnection=null;
+        try {
+            URL url = new URL(BASE_URL);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            String dataStr = "{\"id\":\""+id+"\"}";
+            Log.e("JSON ENVIADO",dataStr);
+
+            // Construir los datos a enviar
+            String data = "action=" + URLEncoder.encode("29","UTF-8")
+                    + "&data=" + URLEncoder.encode(dataStr,"UTF-8");
+
+
+            urlConnection.setDoOutput(true);
+            urlConnection.setFixedLengthStreamingMode(data.getBytes().length);
+            urlConnection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+            OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
+
+            out.write(data.getBytes());
+            out.flush();
+            out.close();
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            BufferedReader  br = new BufferedReader(new InputStreamReader(in));
+            while(br.readLine() != null){
+                respuesta = respuesta+br.readLine();
+            }
+
+        } catch (MalformedURLException mue){
+
+        } catch (IOException e){
+
+        } finally {
+            if(urlConnection!=null)
+                urlConnection.disconnect();
+        }
+
+        return respuesta;
+    }
+
+    public String getAmigos(int id){
+        String respuesta = "";
+        HttpURLConnection urlConnection=null;
+        try {
+            URL url = new URL(BASE_URL);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            String dataStr = "{\"id\":\""+id+"\"}";
+            Log.e("JSON ENVIADO",dataStr);
+
+            // Construir los datos a enviar
+            String data = "action=" + URLEncoder.encode("32","UTF-8")
+                    + "&data=" + URLEncoder.encode(dataStr,"UTF-8");
 
 
             urlConnection.setDoOutput(true);

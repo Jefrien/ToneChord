@@ -21,10 +21,12 @@ import android.widget.TextView;
 import com.jefrienalvizures.tonechord.bean.Usuario;
 import com.jefrienalvizures.tonechord.events.FragmentEventChanged;
 import com.jefrienalvizures.tonechord.events.MensajesNuevosEvent;
+import com.jefrienalvizures.tonechord.fragments.AmigosFragment;
 import com.jefrienalvizures.tonechord.fragments.CloudFragment;
 import com.jefrienalvizures.tonechord.fragments.FavoriteFragment;
 import com.jefrienalvizures.tonechord.fragments.InicioFragment;
 import com.jefrienalvizures.tonechord.fragments.MensajesFragment;
+import com.jefrienalvizures.tonechord.fragments.SolicitudesFragment;
 import com.jefrienalvizures.tonechord.interfaces.InterfaceMensajesNuevos;
 import com.jefrienalvizures.tonechord.lib.BaseDeDatos;
 import com.jefrienalvizures.tonechord.lib.Dialogos;
@@ -87,7 +89,7 @@ public class MensajesActivity extends AppCompatActivity {
     @Subscribe
     public void onEventMainThread(MensajesNuevosEvent event){
         // your implementation
-        listener.onChangedListMensajes(event.isEstado());
+//        listener.onChangedListMensajes(event.isEstado());
     }
 
     /* public void setupAds(){
@@ -188,8 +190,8 @@ public class MensajesActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         mf = MensajesFragment.newInstance();
         adapter.addFragment(mf, "MENSAJES");
-        //adapter.addFragment(InicioFragment.newInstance(""), "INICIO");
-        //adapter.addFragment(new FavoriteFragment(), "FAVORITOS");
+        adapter.addFragment(AmigosFragment.newInstance(), "AMIGOS");
+        adapter.addFragment(SolicitudesFragment.newInstance(), "SOLICITUDES");
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

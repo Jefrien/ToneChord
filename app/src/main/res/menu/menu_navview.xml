@@ -10,17 +10,17 @@
             android:title="@string/drawer_nueva_letra"/>
         <item
             android:id="@+id/drawer_menu_perfil"
-            android:icon="@drawable/face_profile"
+            android:icon="@drawable/face_profile_circle"
             android:title="@string/drawer_perfil"/>
 
         <item
             android:id="@+id/drawer_menu_inbox"
-            android:icon="@drawable/inbox_icon"
+            android:icon="@drawable/message_text"
             android:title="@string/drawer_inbox"/>
 
         <item
             android:id="@+id/drawer_menu_del_publicidad"
-            android:icon="@drawable/close_outline"
+            android:icon="@drawable/close_circle"
             android:title="@string/drawer_eliminar_publicidad"/>
         <item
             android:id="@+id/drawer_menu_donar"

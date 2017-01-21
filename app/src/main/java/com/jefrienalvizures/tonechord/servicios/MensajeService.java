@@ -5,6 +5,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.RingtoneManager;
@@ -28,6 +29,7 @@ import com.jefrienalvizures.tonechord.bean.Response;
 import com.jefrienalvizures.tonechord.bean.Usuario;
 import com.jefrienalvizures.tonechord.events.FragmentEventChanged;
 import com.jefrienalvizures.tonechord.events.MensajesNuevosEvent;
+import com.jefrienalvizures.tonechord.interfaces.InterfaceServiceMensajes;
 import com.jefrienalvizures.tonechord.lib.BaseDeDatos;
 import com.jefrienalvizures.tonechord.lib.Comunicator;
 import com.jefrienalvizures.tonechord.lib.EventBus;
@@ -62,7 +64,7 @@ public class MensajeService extends Service {
     int notif_ref = 1;
     Activity actividad;
     public static String BASE_URL = "http://192.168.137.1/wsTC/index.php";
-
+    boolean estado = true;
 
     @Override
     public void onCreate() {
@@ -76,22 +78,37 @@ public class MensajeService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                Log.e("Servicio","Obteniendo mensajes");
-                MensajesNuevosTask mensajesTask = new MensajesNuevosTask();
-                mensajesTask.execute();
-                handler.postDelayed(this, 10000); //now is every 2 minutes
-            }
-        }, 10000);
+
+            final Handler handler1 = new Handler();
+            Runnable run = null;
+        final Runnable finalRun = run;
+        handler1.postDelayed(run = new Runnable() {
+                public void run() {
+                    if(estado) {
+                        Log.e("Servicio", "Verificando red");
+                        hiloVerificarConexion();
+                        if (Comunicator.isInternet()) {
+                            Log.e("Servicio", "Obteniendo mensajes");
+
+                            MensajesNuevosTask mensajesTask = new MensajesNuevosTask();
+                            mensajesTask.execute();
+                        }
+                    } else {
+                        handler1.removeCallbacks(finalRun);
+                    }
+                    handler1.postDelayed(this, 5000); //now is every 2 minutes
+                }
+            }, 5000);
+
 
         return START_STICKY;
     }
 
+
     @Override
     public void onDestroy() {
         Log.e("Servicio","Parando");
+        estado = false;
         super.onDestroy();
     }
 
@@ -99,6 +116,22 @@ public class MensajeService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+
+    /** Metodo para verificar la conexión constantemente **/
+    public void hiloVerificarConexion(){
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                if(!Conexion.getInstancia().verificarConexion()){
+                    Comunicator.setInternet(false);
+                } else {
+                    Comunicator.setInternet(true);
+                }
+            }
+        };
+        thread.start();
     }
 
     private Notification showNotificationMensaje(Notification.Builder builder,List<Mensaje> lista){
@@ -334,4 +367,6 @@ public class MensajeService extends Service {
         EventBus event = GreenRobotEventBus.getInstance();
         event.post(e);
     }
+
+
 }

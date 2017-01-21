@@ -211,7 +211,6 @@ public class BaseDeDatos {
         bd.delete("mensajes",null,null);
         bd.delete("chordsFavoritos",null,null);
         bd.close();
-        a.stopService(new Intent(a,MensajeService.class));
     }
 
     public static Usuario getUsuario(Activity a){

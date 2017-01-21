@@ -1,0 +1,50 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    card_view:cardCornerRadius="10dp"
+    card_view:cardElevation="0dp"
+    card_view:cardUseCompatPadding="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:id="@+id/item_solicitud_imagen"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/item_chord_image"
+            android:scaleType="centerCrop"
+            android:layout_alignRight="@+id/cardview_chord_autor"
+            android:layout_alignEnd="@+id/cardview_chord_autor" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Jefrien Armando"
+                android:id="@+id/item_solicitud_nombre"
+                android:layout_alignParentTop="true"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="5dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="responder"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/btnBlueNormal"
+            android:textStyle="bold"
+            android:background="@android:color/transparent"
+            android:id="@+id/item_solicitud_btn_responder"
+            />
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
