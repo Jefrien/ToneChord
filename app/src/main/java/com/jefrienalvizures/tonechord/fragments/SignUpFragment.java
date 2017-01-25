@@ -102,8 +102,8 @@ public class SignUpFragment extends Fragment{
             } else {
                 _email.setError(null);
                 respuesta = true;
-                if(p.isEmpty() || p.length() < 4){
-                    _password.setError("Minimo 4 caracteres");
+                if(p.isEmpty() || p.length() < 6){
+                    _password.setError("Minimo 6 caracteres");
                     respuesta = false;
                 } else {
                     _password.setError(null);

@@ -12,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.jefrienalvizures.tonechord.bean.Usuario;
 import com.jefrienalvizures.tonechord.events.ActivityChange;
 import com.jefrienalvizures.tonechord.events.FragmentEventChanged;
@@ -48,6 +51,8 @@ public class NuevaActivity extends AppCompatActivity {
     NavigationView navView;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
+    private int estadoDonacion=0;
+    AdView mAdView;
 
     // Declarando variables globales normales
     String tag = "inicio";
@@ -63,6 +68,25 @@ public class NuevaActivity extends AppCompatActivity {
         setItemDrawer(R.id.drawer_menu_nueva_letra);
         eventBus = GreenRobotEventBus.getInstance();
         eventBus.register(this);
+        estadoDonacion = BaseDeDatos.getEstadoDonacion(this);
+        mAdView = (AdView) findViewById(R.id.adView);
+        if(estadoDonacion==1){
+            Log.e("No ha donado","Muestro publicidad");
+            mAdView.setVisibility(View.VISIBLE);
+            setupAds();
+        } else if(estadoDonacion==2){
+            mAdView.setVisibility(View.GONE);
+            Log.e("Ya dono","Oculto publicidad");
+        } else {
+            Log.e("Desconocido","Estado es desconocido");
+            mAdView.setVisibility(View.VISIBLE);
+            setupAds();
+        }
+    }
+
+    public void setupAds(){
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override

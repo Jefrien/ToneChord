@@ -51,11 +51,11 @@ public class Conexion {
     }
 
     // Online
-    //public static String BASE_URL = "http://wstc.96.lt/api/";
-    //public static String BASE_URL_IMG = "http://wstc.96.lt/api/uploads/";
+    public static String BASE_URL = "http://wstc.96.lt/api/";
+    public static String BASE_URL_IMG = "http://wstc.96.lt/api/uploads/";
     // Local
-    public static String BASE_URL = "http://192.168.137.1/wsTC/index.php";
-    public static String BASE_URL_IMG = "http://192.168.137.1/wsTC/uploads/";
+    //public static String BASE_URL = "http://192.168.137.1/wsTC/index.php";
+    //public static String BASE_URL_IMG = "http://192.168.137.1/wsTC/uploads/";
     // paypal donation Button
     public static String DONATION_PAYPAL_URL = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZESZJ64HPN27J";
 

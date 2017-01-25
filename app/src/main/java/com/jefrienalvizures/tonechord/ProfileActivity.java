@@ -30,6 +30,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.jefrienalvizures.tonechord.bean.Response;
@@ -78,6 +81,8 @@ public class ProfileActivity extends AppCompatActivity {
     Dialogos dialogos;
     EditText passEliminar;
     boolean respuestaVerificarInternet=true;
+    private int estadoDonacion=0;
+    AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,9 +91,28 @@ public class ProfileActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setupToolbar();
         loadUser();
+        estadoDonacion = BaseDeDatos.getEstadoDonacion(this);
+        mAdView = (AdView) findViewById(R.id.adView);
+        if(estadoDonacion==1){
+            Log.e("No ha donado","Muestro publicidad");
+            mAdView.setVisibility(View.VISIBLE);
+            setupAds();
+        } else if(estadoDonacion==2){
+            mAdView.setVisibility(View.GONE);
+            Log.e("Ya dono","Oculto publicidad");
+        } else {
+            Log.e("Desconocido","Estado es desconocido");
+            mAdView.setVisibility(View.VISIBLE);
+            setupAds();
+        }
         verificoInternet();
         dialogos = new Dialogos(this);
         new PerfilTask().execute();
+    }
+
+    public void setupAds(){
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @OnClick(R.id.btnCambiarPassProfile)

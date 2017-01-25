@@ -13,6 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.jefrienalvizures.tonechord.events.RegisterEvent;
 import com.jefrienalvizures.tonechord.fragments.LoginFragment;
 import com.jefrienalvizures.tonechord.fragments.SignUpFragment;
@@ -52,18 +55,18 @@ public class LoginActivity extends AppCompatActivity {
 
         eventBus = GreenRobotEventBus.getInstance();    // Obtengo una instancia de eventbus
         eventBus.register(this);                        // Registro los eventos
-        //setupAds();                                   // Configuro la publicidad
+        setupAds();                                     // Configuro la publicidad
         hiloVerificarConexion();                        // Hilo de verificación de conexión
         verificarConexion();                            // Verificación de conexión inicial
     }
 
     /** Metodo para configurar publicidad **/
-    /*public void setupAds(){
+    public void setupAds(){
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         //mAdView.setAdSize(AdSize.SMART_BANNER);
         mAdView.loadAd(adRequest);
-    }*/
+    }
 
     /** Metodo para verificar la conexion al webservice **/
     public void verificarConexion(){

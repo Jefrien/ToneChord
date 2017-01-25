@@ -12,6 +12,10 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.jefrienalvizures.tonechord.lib.BaseDeDatos;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -35,12 +39,32 @@ public class DonateActivity extends AppCompatActivity {
     EditText _monto;
     @Bind(R.id.txtEmailDonar) EditText _email;
     @Bind(R.id.txtNombreDonar) EditText _nombre;
+    private int estadoDonacion=0;
+    AdView mAdView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donate2);
         ButterKnife.bind(this);
         setupToolbar();
+
+        estadoDonacion = BaseDeDatos.getEstadoDonacion(this);
+        mAdView = (AdView) findViewById(R.id.adView);
+        if(estadoDonacion==1){
+            Log.e("No ha donado","Muestro publicidad");
+            mAdView.setVisibility(View.VISIBLE);
+            setupAds();
+        } else if(estadoDonacion==2){
+            mAdView.setVisibility(View.GONE);
+            Log.e("Ya dono","Oculto publicidad");
+        } else {
+            Log.e("Desconocido","Estado es desconocido");
+            mAdView.setVisibility(View.VISIBLE);
+            setupAds();
+        }
+
         config = new PayPalConfiguration();
         config.environment(PayPalConfiguration.ENVIRONMENT_SANDBOX);
         // Productivo
@@ -63,6 +87,11 @@ public class DonateActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    public void setupAds(){
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override

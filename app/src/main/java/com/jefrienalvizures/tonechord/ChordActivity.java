@@ -19,6 +19,8 @@ import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jefrienalvizures.tonechord.R;
@@ -62,6 +64,8 @@ public class ChordActivity extends AppCompatActivity {
     int toolbarStatus = 1;
     boolean bloquear=false;
     boolean infoShow=true;
+    private int estadoDonacion=0;
+    AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +74,20 @@ public class ChordActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setupToolbar();
         loadUser();
+        estadoDonacion = BaseDeDatos.getEstadoDonacion(this);
+        mAdView = (AdView) findViewById(R.id.adView);
+        if(estadoDonacion==1){
+            Log.e("No ha donado","Muestro publicidad");
+            mAdView.setVisibility(View.VISIBLE);
+            setupAds();
+        } else if(estadoDonacion==2){
+            mAdView.setVisibility(View.GONE);
+            Log.e("Ya dono","Oculto publicidad");
+        } else {
+            Log.e("Desconocido","Estado es desconocido");
+            mAdView.setVisibility(View.VISIBLE);
+            setupAds();
+        }
         dialogos = new Dialogos(this);
         Bundle bundle = getIntent().getExtras();
         try {
@@ -95,6 +113,11 @@ public class ChordActivity extends AppCompatActivity {
         }
         eventBus = GreenRobotEventBus.getInstance();
         eventBus.register(this);
+    }
+
+    public void setupAds(){
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override

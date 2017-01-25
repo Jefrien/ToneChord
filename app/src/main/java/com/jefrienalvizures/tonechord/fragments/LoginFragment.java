@@ -188,7 +188,12 @@ public class LoginFragment extends Fragment {
                 if(statusDonationStr!=null){
                     donacion = gson.fromJson(statusDonationStr,Response.class);
                 }
-                BaseDeDatos.setEstadoDonacion(getActivity(),Integer.parseInt(donacion.getMessage()));
+                try {
+                    BaseDeDatos.setEstadoDonacion(getActivity(), Integer.parseInt(donacion.getMessage()));
+                } catch (NullPointerException e){
+                    e.printStackTrace();
+                }
+
                 String resImg = conexion.getImagenUsuario(usuarioLog.getId());
                 if(res!=null) {
                     if(resImg!=null){

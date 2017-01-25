@@ -14,11 +14,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.jefrienalvizures.tonechord.bean.Usuario;
 import com.jefrienalvizures.tonechord.events.FragmentEventChanged;
 import com.jefrienalvizures.tonechord.events.MensajesNuevosEvent;
@@ -58,6 +61,8 @@ public class MensajesActivity extends AppCompatActivity {
     Usuario usuarioActual=null;
     private com.jefrienalvizures.tonechord.lib.EventBus eventBus;
     MensajesFragment mf;
+    private int estadoDonacion=0;
+    AdView mAdView;
 
 
     private InterfaceMensajesNuevos listener;
@@ -73,12 +78,30 @@ public class MensajesActivity extends AppCompatActivity {
         loadUser();
         setupDrawer();
         setupToolbar();
-        // setupAds();
+        estadoDonacion = BaseDeDatos.getEstadoDonacion(this);
+        mAdView = (AdView) findViewById(R.id.adView);
+        if(estadoDonacion==1){
+            Log.e("No ha donado","Muestro publicidad");
+            mAdView.setVisibility(View.VISIBLE);
+            setupAds();
+        } else if(estadoDonacion==2){
+            mAdView.setVisibility(View.GONE);
+            Log.e("Ya dono","Oculto publicidad");
+        } else {
+            Log.e("Desconocido","Estado es desconocido");
+            mAdView.setVisibility(View.VISIBLE);
+            setupAds();
+        }
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
         eventBus = GreenRobotEventBus.getInstance();
         eventBus.register(this);
+    }
+
+    public void setupAds(){
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override
@@ -93,12 +116,6 @@ public class MensajesActivity extends AppCompatActivity {
 //        listener.onChangedListMensajes(event.isEstado());
     }
 
-    /* public void setupAds(){
-        AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        //mAdView.setAdSize(AdSize.SMART_BANNER);
-        mAdView.loadAd(adRequest);
-    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

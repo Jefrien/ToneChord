@@ -20,6 +20,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.jefrienalvizures.tonechord.bean.Usuario;
 import com.jefrienalvizures.tonechord.events.ListaChordsChanged;
 import com.jefrienalvizures.tonechord.events.ShowHideToolbarEvent;
@@ -55,7 +58,10 @@ public class HomeActivity extends AppCompatActivity {
     Usuario usuarioActual=null;
     private com.jefrienalvizures.tonechord.lib.EventBus eventBus;
     private int estadoDonacion=0;
+    AdView mAdView;
     private String accionInicioFragment = "null";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +69,7 @@ public class HomeActivity extends AppCompatActivity {
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
+        mAdView = (AdView) findViewById(R.id.adView);
         try {
             Bundle bundle = getIntent().getExtras();
             if (!bundle.getString("accion").isEmpty()) {
@@ -71,17 +78,22 @@ public class HomeActivity extends AppCompatActivity {
         } catch (NullPointerException e){
             Log.e("Error bundle IF","Bundle nullo: "+e.getStackTrace());
         }
-        estadoDonacion = BaseDeDatos.getEstadoDonacion(this);
+
         loadUser();
         setupDrawer();
         setupToolbar();
+        estadoDonacion = BaseDeDatos.getEstadoDonacion(this);
         if(estadoDonacion==1){
             Log.e("No ha donado","Muestro publicidad");
-            // setupAds();
+            mAdView.setVisibility(View.VISIBLE);
+            setupAds();
         } else if(estadoDonacion==2){
+            mAdView.setVisibility(View.GONE);
             Log.e("Ya dono","Oculto publicidad");
         } else {
             Log.e("Desconocido","Estado es desconocido");
+            mAdView.setVisibility(View.VISIBLE);
+            setupAds();
         }
 
         setupViewPager(viewPager);
@@ -101,12 +113,10 @@ public class HomeActivity extends AppCompatActivity {
         eventBus.untegister(this);
     }
 
-   /* public void setupAds(){
-        AdView mAdView = (AdView) findViewById(R.id.adView);
+    public void setupAds(){
         AdRequest adRequest = new AdRequest.Builder().build();
-        //mAdView.setAdSize(AdSize.SMART_BANNER);
         mAdView.loadAd(adRequest);
-    }*/
+    }
 
     @Subscribe
     public void onEventMainThread(ListaChordsChanged event){
