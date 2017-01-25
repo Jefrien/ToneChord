@@ -1,5 +1,6 @@
 package com.jefrienalvizures.tonechord.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,8 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.jefrienalvizures.tonechord.R;
 import com.jefrienalvizures.tonechord.bean.SolicitudDeAmistad;
+import com.jefrienalvizures.tonechord.bean.Usuario;
 import com.jefrienalvizures.tonechord.events.FragmentEventChanged;
 import com.jefrienalvizures.tonechord.events.ResponderSolicitudDialogEvent;
+import com.jefrienalvizures.tonechord.lib.BaseDeDatos;
 import com.jefrienalvizures.tonechord.lib.DialogoCreator;
 import com.jefrienalvizures.tonechord.lib.EventBus;
 import com.jefrienalvizures.tonechord.lib.GreenRobotEventBus;
@@ -30,6 +33,7 @@ public class AdapterCardViewSolicitud
 
     private List<SolicitudDeAmistad> items;
     Context context;
+    Usuario usuarioActual;
 
     public static class SolicitudViewHolder extends RecyclerView.ViewHolder {
         // Campos del item
@@ -48,6 +52,7 @@ public class AdapterCardViewSolicitud
     public AdapterCardViewSolicitud(Context c,List<SolicitudDeAmistad> items){
         this.items = items;
         this.context = c;
+        loadUser();
     }
 
     @Override
@@ -57,14 +62,18 @@ public class AdapterCardViewSolicitud
         return new SolicitudViewHolder(v);
     }
 
+    private void loadUser(){
+        usuarioActual = BaseDeDatos.getUsuario((Activity)context);
+    }
+
     @Override
     public void onBindViewHolder(SolicitudViewHolder holder, int position) {
-        Log.e("Tamaño Array",items.size()+"");
-        for(SolicitudDeAmistad s : items){
-            Log.e("Imagen tamaños: ",s.getImagen().getWidth()+"");
+        if(items.get(position).getUsuario1().equals(usuarioActual.getEmail())){
+            holder._nombre.setText(items.get(position).getUsuario2name());
+        } else {
+            holder._nombre.setText(items.get(position).getUsuario1name());
         }
         holder._imagen.setImageBitmap(items.get(position).getImagen());
-        holder._nombre.setText(items.get(position).getUsuario1());
         holder._accion.setTag(position);
         holder._accion.setOnClickListener(this);
     }

@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.jefrienalvizures.tonechord.bean.Chord;
 import com.jefrienalvizures.tonechord.bean.Mensaje;
+import com.jefrienalvizures.tonechord.bean.Response;
 import com.jefrienalvizures.tonechord.bean.Usuario;
 import com.jefrienalvizures.tonechord.lib.SQLiteToneChord;
 import com.jefrienalvizures.tonechord.net.Conexion;
@@ -149,6 +150,31 @@ public class BaseDeDatos {
         _usuario.put("imagen",usuario.getImagen());
         bd.insert("usuario",null,_usuario);
         bd.close();
+    }
+
+    public static void setEstadoDonacion(Activity a,int estado){
+        SQLiteToneChord tonechord = new SQLiteToneChord(a,"ToneChord",null,1);
+        SQLiteDatabase bd = tonechord.getWritableDatabase();
+        ContentValues _usuario = new ContentValues();
+        _usuario.put("ds",estado);
+        bd.update("usuario",_usuario,null,null);
+        bd.close();
+    }
+
+    public static int getEstadoDonacion(Activity a){
+        int respuesta =0;
+        SQLiteToneChord tonechord = new SQLiteToneChord(a, "ToneChord", null, 1);
+        SQLiteDatabase bd = tonechord.getWritableDatabase();
+        Cursor fila = bd.rawQuery(
+                "select ds from usuario"
+                , null);
+        if(fila.moveToFirst()){
+            do{
+                respuesta = fila.getInt(0);
+            } while (fila.moveToNext());
+        }
+        bd.close();
+        return respuesta;
     }
 
     public static void setImage(Activity a,String imagen){

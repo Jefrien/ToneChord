@@ -1,5 +1,6 @@
 package com.jefrienalvizures.tonechord.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,7 +13,9 @@ import android.widget.TextView;
 
 import com.jefrienalvizures.tonechord.R;
 import com.jefrienalvizures.tonechord.bean.SolicitudDeAmistad;
+import com.jefrienalvizures.tonechord.bean.Usuario;
 import com.jefrienalvizures.tonechord.events.ResponderSolicitudDialogEvent;
+import com.jefrienalvizures.tonechord.lib.BaseDeDatos;
 import com.jefrienalvizures.tonechord.lib.EventBus;
 import com.jefrienalvizures.tonechord.lib.GreenRobotEventBus;
 
@@ -28,6 +31,7 @@ public class AdapterCardViewAmigo
 
     private List<SolicitudDeAmistad> items;
     Context context;
+    Usuario usuarioActual;
 
     public static class AmigoViewHolder extends RecyclerView.ViewHolder {
         // Campos del item
@@ -45,6 +49,7 @@ public class AdapterCardViewAmigo
         this.items = items;
         this.context = c;
         Log.e("Adaptador","Entro al constructor");
+        loadUser();
     }
 
     @Override
@@ -58,11 +63,18 @@ public class AdapterCardViewAmigo
 
     @Override
     public void onBindViewHolder(AmigoViewHolder holder, int position) {
-        Log.e("PRUEBA",items.get(position).getUsuario1());
-        Log.e("Tamaño Array",items.size()+"");
         holder._imagen.setImageBitmap(items.get(position).getImagen());
-        holder._nombre.setText(items.get(position).getUsuario1());
+        if(items.get(position).getUsuario1().equals(usuarioActual.getEmail())){
+            holder._nombre.setText(items.get(position).getUsuario2name());
+        } else {
+            holder._nombre.setText(items.get(position).getUsuario1name());
+        }
 
+
+    }
+
+    private void loadUser(){
+        usuarioActual = BaseDeDatos.getUsuario((Activity)context);
     }
 
     @Override

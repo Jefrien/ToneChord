@@ -54,7 +54,7 @@ public class HomeActivity extends AppCompatActivity {
     ViewPager viewPager;
     Usuario usuarioActual=null;
     private com.jefrienalvizures.tonechord.lib.EventBus eventBus;
-
+    private int estadoDonacion=0;
     private String accionInicioFragment = "null";
 
     @Override
@@ -71,10 +71,19 @@ public class HomeActivity extends AppCompatActivity {
         } catch (NullPointerException e){
             Log.e("Error bundle IF","Bundle nullo: "+e.getStackTrace());
         }
+        estadoDonacion = BaseDeDatos.getEstadoDonacion(this);
         loadUser();
         setupDrawer();
         setupToolbar();
-       // setupAds();
+        if(estadoDonacion==1){
+            Log.e("No ha donado","Muestro publicidad");
+            // setupAds();
+        } else if(estadoDonacion==2){
+            Log.e("Ya dono","Oculto publicidad");
+        } else {
+            Log.e("Desconocido","Estado es desconocido");
+        }
+
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();

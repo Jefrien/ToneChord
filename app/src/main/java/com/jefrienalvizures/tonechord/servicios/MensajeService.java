@@ -90,8 +90,8 @@ public class MensajeService extends Service {
                         if (Comunicator.isInternet()) {
                             Log.e("Servicio", "Obteniendo mensajes");
 
-                            MensajesNuevosTask mensajesTask = new MensajesNuevosTask();
-                            mensajesTask.execute();
+                           // MensajesNuevosTask mensajesTask = new MensajesNuevosTask();
+                            //mensajesTask.execute();
                         }
                     } else {
                         handler1.removeCallbacks(finalRun);
@@ -167,7 +167,7 @@ public class MensajeService extends Service {
                 n.addLine(m.getMensaje());
             } else {
                 String[] nombre = m.getNombreEnvia().split(" ");
-                n.addLine(Html.fromHtml("<strong>"+nombre[0])+"</strong>" + ":"+m.getMensaje());
+                n.addLine(Html.fromHtml("<strong>"+nombre[0]+"</strong>") + ":"+m.getMensaje());
             }
             BaseDeDatos.guardarMensajeIf(actividad,m);
         }

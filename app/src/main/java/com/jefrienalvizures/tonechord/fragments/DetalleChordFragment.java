@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.jefrienalvizures.tonechord.BuildConfig;
+import com.jefrienalvizures.tonechord.ProfileActivity;
 import com.jefrienalvizures.tonechord.R;
 import com.jefrienalvizures.tonechord.UserProfileActivity;
 import com.jefrienalvizures.tonechord.bean.Chord;
@@ -114,16 +115,21 @@ public class DetalleChordFragment extends Fragment {
     @OnClick(R.id.detalleChordUsuarioPerfil)
     public void verPerfil(){
         if(Comunicator.isInternet()) {
-            Intent i = new Intent(getActivity(), UserProfileActivity.class);
-            String[] datos = {
-                    String.valueOf(usuarioChord.getId()),
-                    usuarioChord.getName(),
-                    usuarioChord.getEmail(),
-                    usuarioChord.getImagen()
-            };
-            i.putExtra("usuario", datos);
-            Log.e("Usuario enviado", datos.length + "");
-            startActivity(i);
+            if(usuarioChord.getEmail().equals(usuarioActual.getEmail())){
+                startActivity(new Intent(getActivity(),ProfileActivity.class));
+                getActivity().finish();
+            } else {
+                Intent i = new Intent(getActivity(), UserProfileActivity.class);
+                String[] datos = {
+                        String.valueOf(usuarioChord.getId()),
+                        usuarioChord.getName(),
+                        usuarioChord.getEmail(),
+                        usuarioChord.getImagen()
+                };
+                i.putExtra("usuario", datos);
+                Log.e("Usuario enviado", datos.length + "");
+                startActivity(i);
+            }
         } else {
             noInternetDialog();
         }
@@ -195,7 +201,7 @@ public class DetalleChordFragment extends Fragment {
         String codigo = "chord_"+chordActual.getIdUsuario()+"#"+chordActual.getId()+"#"+ BuildConfig.VERSION_NAME;
         codigoCompartir.setText(codigo);
 
-        final String mensajeTxt = "Hola, te mando este chord para que lo veas :D Codigo: "+codigo;
+        final String mensajeTxt = codigo;
 
         enviarCompartir.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -350,6 +356,7 @@ public class DetalleChordFragment extends Fragment {
     class EnviarChordCorreo extends AsyncTask<Mensaje,Void,Void> {
 
         String respuesta;
+        String respuestaId;
         Response response;
 
         @Override
@@ -360,6 +367,21 @@ public class DetalleChordFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Mensaje... params) {
+
+            respuestaId = Conexion.getInstancia()
+                    .getIdConversacion(usuarioActual.getEmail(),params[0].getUsuarioDestino());
+            Log.e("RESPUESTA 1",respuestaId);
+            if(respuestaId.trim().equals("-")) {
+                respuestaId = Conexion.getInstancia()
+                        .crearConversacion(usuarioActual.getEmail(),params[0].getUsuarioDestino());
+                Log.e("RESPUESTA 2",respuestaId);
+                respuestaId = Conexion.getInstancia()
+                        .getIdConversacion(usuarioActual.getEmail(),params[0].getUsuarioDestino());
+            }
+
+            if(!respuestaId.trim().equals("-")){
+                params[0].setId(Integer.parseInt(respuestaId));
+            }
             respuesta = Conexion.getInstancia().enviarMensaje(params[0]);
             if(respuesta!=null || respuesta.isEmpty()){
                 response = gson.fromJson(respuesta,Response.class);

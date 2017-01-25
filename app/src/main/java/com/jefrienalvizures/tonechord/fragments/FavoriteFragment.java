@@ -74,6 +74,7 @@ public class FavoriteFragment extends Fragment {
                         int idChord = items.get(position).getId();
                         Intent i = new Intent(getActivity(), ChordActivity.class);
                         i.putExtra("id",idChord);
+                        i.putExtra("showInfo",true);
                         i.putExtra("origen","f");
                         startActivity(i);
                     }

@@ -9,45 +9,35 @@ import java.io.Serializable;
  */
 public class SolicitudDeAmistad implements Serializable{
     private int idAmistad;
-    private int idUsuario1;
-    private int idUsuario2;
-    private int estado;
     private String usuario1;
     private String usuario2;
+    private int estado;
+    private String usuario1name;
+    private String usuario2name;
     private Bitmap imagen;
 
     public SolicitudDeAmistad() {
     }
 
-    public SolicitudDeAmistad(int idAmistad, int idUsuario1, int idUsuario2, int estado) {
+    public SolicitudDeAmistad(int idAmistad, String usuario1, String usuario2, int estado, String usuario1name, String usuario2name, Bitmap imagen) {
         this.idAmistad = idAmistad;
-        this.idUsuario1 = idUsuario1;
-        this.idUsuario2 = idUsuario2;
-        this.estado = estado;
-    }
-
-    public SolicitudDeAmistad(int idAmistad, int idUsuario1, int idUsuario2, int estado, String usuario1, String usuario2, Bitmap imagen) {
-        this.idAmistad = idAmistad;
-        this.idUsuario1 = idUsuario1;
-        this.idUsuario2 = idUsuario2;
-        this.estado = estado;
         this.usuario1 = usuario1;
         this.usuario2 = usuario2;
+        this.estado = estado;
+        this.usuario1name = usuario1name;
+        this.usuario2name = usuario2name;
         this.imagen = imagen;
     }
 
     public String toJson(){
         String respuesta = "{" +
                 "\"idAmistad\":\""+this.idAmistad+"\"," +
-                "\"idUsuario1\":\""+this.idUsuario1+"\"," +
-                "\"idUsuario2\":\""+this.idUsuario2+"\"," +
+                "\"usuario1\":\""+this.usuario1+"\"," +
+                "\"usuario2\":\""+this.usuario2+"\"," +
                 "\"estado\":\""+this.estado+"\"}";
         return respuesta;
     }
 
-    public String getUsuario1() {
-        return usuario1;
-    }
 
     public Bitmap getImagen() {
         return imagen;
@@ -55,18 +45,6 @@ public class SolicitudDeAmistad implements Serializable{
 
     public void setImagen(Bitmap imagen) {
         this.imagen = imagen;
-    }
-
-    public void setUsuario1(String usuario1) {
-        this.usuario1 = usuario1;
-    }
-
-    public String getUsuario2() {
-        return usuario2;
-    }
-
-    public void setUsuario2(String usuario2) {
-        this.usuario2 = usuario2;
     }
 
     public int getEstado() {
@@ -85,19 +63,35 @@ public class SolicitudDeAmistad implements Serializable{
         this.idAmistad = idAmistad;
     }
 
-    public int getIdUsuario1() {
-        return idUsuario1;
+    public String getUsuario1() {
+        return usuario1;
     }
 
-    public void setIdUsuario1(int idUsuario1) {
-        this.idUsuario1 = idUsuario1;
+    public void setUsuario1(String usuario1) {
+        this.usuario1 = usuario1;
     }
 
-    public int getIdUsuario2() {
-        return idUsuario2;
+    public String getUsuario2() {
+        return usuario2;
     }
 
-    public void setIdUsuario2(int idUsuario2) {
-        this.idUsuario2 = idUsuario2;
+    public void setUsuario2(String usuario2) {
+        this.usuario2 = usuario2;
+    }
+
+    public String getUsuario1name() {
+        return usuario1name;
+    }
+
+    public void setUsuario1name(String usuario1name) {
+        this.usuario1name = usuario1name;
+    }
+
+    public String getUsuario2name() {
+        return usuario2name;
+    }
+
+    public void setUsuario2name(String usuario2name) {
+        this.usuario2name = usuario2name;
     }
 }

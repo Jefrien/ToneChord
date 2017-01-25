@@ -1,0 +1,95 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/loginCoordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:scrollbars="vertical"
+        android:id="@+id/recicladorMensajesChat"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/linearLayout"></android.support.v7.widget.RecyclerView>
+    <!--
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id"
+            app:layout_anchor="@id/viewpager"
+            app:layout_anchorGravity="bottom|center_horizontal"
+            android:layout_gravity="center|bottom"
+            >
+        </com.google.android.gms.ads.AdView>
+    -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom|fill"
+        android:weightSum="10"
+        app:layout_anchor="@id/recicladorMensajesChat"
+        app:layout_anchorGravity="bottom|center_horizontal"
+        android:background="@color/colorFondoGrisClaro"
+        android:id="@+id/linearLayout"
+        android:elevation="5dp"
+        android:showDividers="none">
+
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Responder"
+            android:layout_weight="9"
+            android:id="@+id/chatEditText"
+            android:backgroundTint="@android:color/transparent"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
+            android:textColor="@color/colorTextoGrisMedioOscuro"
+            android:layout_gravity="bottom"
+            android:elevation="0dp"
+            android:inputType="textAutoComplete|text|textMultiLine" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="enviar"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_normal_states"
+            android:textColor="@color/colorFondoGrisClaro"
+            android:id="@+id/chatBtnEnviar"
+            android:layout_gravity="bottom|right" />
+
+    </LinearLayout>
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

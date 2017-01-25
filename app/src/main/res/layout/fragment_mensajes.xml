@@ -3,7 +3,10 @@
     android:layout_height="match_parent"
     android:id="@+id/mensajeFramentId"
     >
-
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:id="@+id/fragmentMensajesRefresh"
+            android:layout_height="wrap_content">
 
         <android.support.v7.widget.RecyclerView
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -13,5 +16,7 @@
             android:padding="3dp"
             android:scrollbars="vertical"
             />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

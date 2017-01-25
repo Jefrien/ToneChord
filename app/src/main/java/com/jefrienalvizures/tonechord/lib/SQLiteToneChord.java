@@ -17,7 +17,7 @@ public class SQLiteToneChord extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table chords(archivo text)");
-        db.execSQL("create table usuario(id integer,name text,email text,imagen text)");
+        db.execSQL("create table usuario(id integer,name text,email text,imagen text,ds integer)");
         db.execSQL("create table chordsFavoritos(archivo text)");
         db.execSQL("create table mensajes(archivo text)");
     }

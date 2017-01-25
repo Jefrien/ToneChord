@@ -12,6 +12,12 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
+import com.paypal.android.sdk.payments.PayPalConfiguration;
+import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
+import com.paypal.android.sdk.payments.PaymentConfirmation;
+
 import org.json.JSONException;
 import org.w3c.dom.Text;
 
@@ -22,21 +28,20 @@ import butterknife.ButterKnife;
 
 public class DonateActivity extends AppCompatActivity {
 
-    //private static PayPalConfiguration config;
+    private static PayPalConfiguration config;
 
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.txtCantidadDonar)
     EditText _monto;
     @Bind(R.id.txtEmailDonar) EditText _email;
     @Bind(R.id.txtNombreDonar) EditText _nombre;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donate2);
         ButterKnife.bind(this);
         setupToolbar();
-        /*config = new PayPalConfiguration();
+        config = new PayPalConfiguration();
         config.environment(PayPalConfiguration.ENVIRONMENT_SANDBOX);
         // Productivo
         //config.clientId("AYPh28uXbcH4LcZSxp28SVRmGemIOvZL436WXXUs3qggZJseJgNxcDW75YOm8dzwjCheq8xR99YCyJff");
@@ -56,7 +61,8 @@ public class DonateActivity extends AppCompatActivity {
                 }
             }
         });
-        */
+
+
     }
 
     @Override
@@ -109,7 +115,7 @@ public class DonateActivity extends AppCompatActivity {
         return  resultado;
     }
 
-   /* // Cuando se presiona el boton de  donar
+    // Cuando se presiona el boton de  donar
     public void donar(){
         PayPalPayment payment = new PayPalPayment(new BigDecimal(_monto.getText().toString().trim()), "USD", "Donación de", PayPalPayment.PAYMENT_INTENT_SALE);
         Intent intent = new Intent(this, PaymentActivity.class);
@@ -139,5 +145,5 @@ public class DonateActivity extends AppCompatActivity {
             Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
         }
         super.onActivityResult(requestCode, resultCode, data);
-    }*/
+    }
 }

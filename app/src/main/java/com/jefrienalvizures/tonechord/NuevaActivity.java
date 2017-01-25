@@ -177,6 +177,9 @@ public class NuevaActivity extends AppCompatActivity {
             case R.id.drawer_menu_acercade:
                 new Dialogos().aboutDialog(this);
                 break;
+            case R.id.drawer_menu_donar:
+                startActivity(new Intent(this,DonateActivity.class));
+                break;
             // Si se presiona siguiente en nueva letra
             case 433537801:
                 fragment = new IdentificarFragment();

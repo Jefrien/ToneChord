@@ -104,6 +104,7 @@ public class CloudFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                         Intent i = new Intent(getActivity(), ChordActivity.class);
                         i.putExtra("id",idChord);
                         i.putExtra("origen","cloud");
+                        i.putExtra("showInfo",true);
                         i.putExtra("chord",items.get(position).toJson());
                         Log.e("DATOS","ID: "+idChord+" | TITULO: "+items.get(position).toJson());
                         startActivity(i);

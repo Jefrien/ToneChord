@@ -187,7 +187,7 @@ public class SolicitudesFragment extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            dialogos.showProgressDialog("Cargando");
+          //  dialogos.showProgressDialog("Cargando");
             listaNueva.clear();
             super.onPreExecute();
         }
@@ -195,42 +195,46 @@ public class SolicitudesFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
 
-                respuesta = Conexion.getInstancia().getSolicitudesDeAmistad(usuarioActual.getId());
+                respuesta = Conexion.getInstancia().getSolicitudesDeAmistad(usuarioActual.getEmail());
                 if(respuesta!=null){
                     if(!respuesta.equals("-")) {
-                        Log.e("RESPUESTA S", respuesta);
-                        lista = gson.fromJson(respuesta, new TypeToken<List<SolicitudDeAmistad>>() {
-                        }.getType());
-                        if (lista != null) {
-                            for (SolicitudDeAmistad s : lista) {
-                                String usuario1, usuario2, imagenstr;
-                                Response usuario1Response, usuario2Response;
-                                Bitmap imagen;
-                                /** RESPONSES **/
-                                usuario1Response = gson.fromJson(Conexion.getInstancia().getNombreUsuarioById(s.getIdUsuario1()),
-                                        Response.class);
-                                usuario2Response = gson.fromJson(Conexion.getInstancia().getNombreUsuarioById(s.getIdUsuario2()),
-                                        Response.class);
-                                usuario1 = usuario1Response.getMessage();
-                                usuario2 = usuario2Response.getMessage();
-                                imagenstr = Conexion.getInstancia().getImagenUsuario(s.getIdUsuario1());
-                                imagen = Conexion.getInstancia().getImagen(imagenstr);
-                                Log.e("RESULTADOS", "" +
-                                        " | U1: " + usuario1 +
-                                        " | U2: " + usuario2 +
-                                        " | IMG: " + imagenstr +
-                                        "");
-                                listaNueva.add(new SolicitudDeAmistad(
-                                        s.getIdAmistad(),
-                                        s.getIdUsuario1(),
-                                        s.getIdUsuario2(),
-                                        0,
-                                        usuario1,
-                                        usuario2,
-                                        imagen
-                                ));
+                        try {
+                            Log.e("RESPUESTA S", respuesta);
+                            lista = gson.fromJson(respuesta, new TypeToken<List<SolicitudDeAmistad>>() {
+                            }.getType());
+                            if (lista != null) {
+                                for (SolicitudDeAmistad s : lista) {
+                                    String usuario1, usuario2, imagenstr;
+                                    Response usuario1Response, usuario2Response;
+                                    Bitmap imagen;
+                                    /** RESPONSES **/
+                                    usuario1Response = gson.fromJson(Conexion.getInstancia().getNombreUsuarioByEmail(s.getUsuario1()),
+                                            Response.class);
+                                    usuario2Response = gson.fromJson(Conexion.getInstancia().getNombreUsuarioByEmail(s.getUsuario2()),
+                                            Response.class);
+                                    usuario1 = usuario1Response.getMessage();
+                                    usuario2 = usuario2Response.getMessage();
+                                    imagenstr = Conexion.getInstancia().getImagenUsuarioByEmail(s.getUsuario1());
+                                    imagen = Conexion.getInstancia().getImagen(imagenstr);
+                                    Log.e("RESULTADOS", "" +
+                                            " | U1: " + usuario1 +
+                                            " | U2: " + usuario2 +
+                                            " | IMG: " + imagenstr +
+                                            "");
+                                    listaNueva.add(new SolicitudDeAmistad(
+                                            s.getIdAmistad(),
+                                            s.getUsuario1(),
+                                            s.getUsuario2(),
+                                            0,
+                                            usuario1,
+                                            usuario2,
+                                            imagen
+                                    ));
 
+                                }
                             }
+                        } catch (JsonSyntaxException e){
+                            e.printStackTrace();
                         }
                     } else {
                         Log.e("Estado","Sin solicitudes");
@@ -248,8 +252,8 @@ public class SolicitudesFragment extends Fragment {
                     for (SolicitudDeAmistad s : listaNueva){
                         Log.e("RESULTADOS","" +
                                 " | idAmistad: " + s.getIdAmistad() +
-                                " | idU1: " + s.getIdUsuario1() +
-                                " | idU2: " + s.getIdUsuario2() +
+                                " | idU1: " + s.getUsuario1() +
+                                " | idU2: " + s.getUsuario2() +
                                 " | U1: " + s.getUsuario1() +
                                 " | U2: " + s.getUsuario2() +
                                 " | IMG: " + s.getImagen().getWidth() +
@@ -264,7 +268,7 @@ public class SolicitudesFragment extends Fragment {
             } catch (IndexOutOfBoundsException e){
 
             }
-            dialogos.hideProgressDialog();
+           // dialogos.hideProgressDialog();
             super.onPostExecute(aVoid);
         }
     }

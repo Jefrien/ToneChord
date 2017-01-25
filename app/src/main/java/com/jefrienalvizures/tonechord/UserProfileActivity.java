@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -34,6 +36,7 @@ import com.jefrienalvizures.tonechord.fragments.SolicitudesFragment;
 import com.jefrienalvizures.tonechord.interfaces.InterfaceSolicitudChanged;
 import com.jefrienalvizures.tonechord.lib.BaseDeDatos;
 import com.jefrienalvizures.tonechord.lib.Comunicator;
+import com.jefrienalvizures.tonechord.lib.DialogoCreator;
 import com.jefrienalvizures.tonechord.lib.Dialogos;
 import com.jefrienalvizures.tonechord.net.Conexion;
 
@@ -63,6 +66,7 @@ public class UserProfileActivity extends AppCompatActivity {
     int estadoRequest=0;
     Usuario usuarioActual;
     boolean isEnviada=false;
+    Response responseEstado;
 
     /** INTERFACES **/
     private InterfaceSolicitudChanged listener;
@@ -142,20 +146,50 @@ public class UserProfileActivity extends AppCompatActivity {
                 break;
             case R.id.menu_perfil_add_friend:
                 SetSolicitudEstatus setSolicitudEstatus = new SetSolicitudEstatus();
-
-                if(isEnviada) {
-                    isEnviada = !isEnviada;
-                    itemAddFriend.setIcon(R.drawable.ic_person_add_white);
-                   // Toast.makeText(this,"Solicitud de amistad enviada",Toast.LENGTH_SHORT).show();
+                if(responseEstado.getMessage().equals("2")) {
+                    shoDialogEliminarAmigo();
                 } else {
-                    isEnviada = !isEnviada;
-                    itemAddFriend.setIcon(R.drawable.account_remove);
-                    //Toast.makeText(this,"Solicitud de amistad cancelada",Toast.LENGTH_SHORT).show();
+                    if (isEnviada) {
+                        isEnviada = !isEnviada;
+                        itemAddFriend.setIcon(R.drawable.ic_person_add_white);
+                        // Toast.makeText(this,"Solicitud de amistad enviada",Toast.LENGTH_SHORT).show();
+                    } else {
+                        isEnviada = !isEnviada;
+                        itemAddFriend.setIcon(R.drawable.account_remove);
+                        //Toast.makeText(this,"Solicitud de amistad cancelada",Toast.LENGTH_SHORT).show();
+                    }
+                    setSolicitudEstatus.execute();
                 }
-                setSolicitudEstatus.execute();
+
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void shoDialogEliminarAmigo(){
+        final DialogoCreator dc = new DialogoCreator(this,this,R.layout.eliminar_amigo_dialog);
+        View v = dc.getView();
+
+        Button btnSiEliminarAmigo = (Button) v.findViewById(R.id.btnEliminarAmigoDialogSi);
+        Button btnNoEliminarAmigo = (Button) v.findViewById(R.id.btnEliminarAmigoDialogNo);
+
+        btnNoEliminarAmigo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dc.dismis();
+            }
+        });
+
+        btnSiEliminarAmigo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EliminarAmigo eliminarAmigo = new EliminarAmigo();
+                eliminarAmigo.execute();
+                dc.dismis();
+            }
+        });
+
+        dc.show();
     }
 
     private void setupTabIcons() {
@@ -224,6 +258,7 @@ public class UserProfileActivity extends AppCompatActivity {
     class GetDataProfileUser extends AsyncTask<Void,Void,Void> {
 
         Bitmap imagen;
+        String estadoAmistad;
 
         @Override
         protected void onPreExecute() {
@@ -234,15 +269,31 @@ public class UserProfileActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             try {
+                estadoAmistad = Conexion.getInstancia().getEstadoAmistad(usuarioPerfil.getEmail(),usuarioActual.getEmail());
+                responseEstado = gson.fromJson(estadoAmistad,Response.class);
+
                 imagen = Conexion.getInstancia().getImagen(usuarioPerfil.getImagen());
             }catch (NullPointerException e){
                 Log.e("Exception UserProfile","NullPointer: "+e.getStackTrace());
+            } catch (JsonSyntaxException e){
+                e.printStackTrace();
             }
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
+            if(responseEstado.getStatus().equals("error")){
+                Log.e("Error estado response",responseEstado.getMessage());
+            } else {
+                if(responseEstado.getMessage().equals("1")){
+                    itemAddFriend.setIcon(R.drawable.account_remove);
+                } else if(responseEstado.getMessage().equals("2")){
+                    itemAddFriend.setIcon(R.drawable.account_check);
+                } else {
+                    itemAddFriend.setIcon(R.drawable.ic_person_add_white);
+                }
+            }
             imagenPerfil.setImageBitmap(imagen);
             dialogos.hideProgressDialog();
             super.onPostExecute(aVoid);
@@ -258,9 +309,12 @@ public class UserProfileActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             SolicitudDeAmistad solicitud = new SolicitudDeAmistad(
                     0,
-                    usuarioActual.getId(),
-                    usuarioPerfil.getId(),
-                    1
+                    usuarioActual.getEmail(),
+                    usuarioPerfil.getEmail(),
+                    1,
+                    null,
+                    null,
+                    null
             );
 
             try {
@@ -291,6 +345,42 @@ public class UserProfileActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(UserProfileActivity.this,
                         "Ocurrio un error",Toast.LENGTH_SHORT).show();
+            }
+            super.onPostExecute(aVoid);
+        }
+    }
+
+    class EliminarAmigo extends AsyncTask<Void,Void,Void> {
+
+        Response response;
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            String respuesta = Conexion.getInstancia()
+                    .eliminarAmigo(
+                            usuarioPerfil.getEmail(),
+                            usuarioActual.getEmail()
+                    );
+
+            try {
+                response = gson.fromJson(respuesta, Response.class);
+            } catch (JsonSyntaxException e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            if(response!=null){
+                if(response.getStatus().equals("ok")){
+                    itemAddFriend.setIcon(R.drawable.ic_person_add_white);
+                    Toast.makeText(UserProfileActivity.this,
+                    response.getMessage(),Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(UserProfileActivity.this,
+                            response.getMessage(),Toast.LENGTH_SHORT).show();
+                }
             }
             super.onPostExecute(aVoid);
         }

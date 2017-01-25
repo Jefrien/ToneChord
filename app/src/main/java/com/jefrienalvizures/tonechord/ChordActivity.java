@@ -61,6 +61,7 @@ public class ChordActivity extends AppCompatActivity {
     private long lastClick;
     int toolbarStatus = 1;
     boolean bloquear=false;
+    boolean infoShow=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,12 @@ public class ChordActivity extends AppCompatActivity {
         loadUser();
         dialogos = new Dialogos(this);
         Bundle bundle = getIntent().getExtras();
+        try {
+            infoShow = bundle.getBoolean("showInfo");
+        } catch (NullPointerException e){
+            infoShow = true;
+            e.printStackTrace();
+        }
         if(bundle.getString("origen").equals("local")){
             chordLocal(bundle.getInt("id"));
             chordOrigen = 0;
@@ -227,6 +234,13 @@ public class ChordActivity extends AppCompatActivity {
                     "<script type=\"text/javascript\" src=\"www/js/jquery-1.9.1.min.js\"></script>" +
                     "<script type=\"text/javascript\" src=\"www/js/letra.js\"></script>";
 
+
+            Log.e("INFOSHOW STATUS",""+infoShow);
+            String infoShowStr="";
+            if(infoShow){
+                infoShowStr = "onclick=\"infoChord()\"";
+            }
+            Log.e("INFOSHOW STR",""+infoShowStr);
             String finalHtml = "</div>\n" +
                     "" +
                     "<div class=\"toolbox_options\">\n" +
@@ -255,7 +269,7 @@ public class ChordActivity extends AppCompatActivity {
                     "\t\t\t\t\t</td>\n" +
                     "\t\t\t\t</tr>\n" +
                     "\t\t\t\t<tr>\n" +
-                    "\t\t\t\t\t<td width=\"25%\"><span onclick=\"infoChord()\"><center><img src=\"www/img/info.png\" height=\"40px\"></center></span></td>\n" +
+                    "\t\t\t\t\t<td width=\"25%\"><span "+infoShowStr+"><center><img src=\"www/img/info.png\" height=\"40px\"></center></span></td>\n" +
                     "\t\t\t\t\t<td width=\"25%\"><span onclick=\"autoChord()\"><center><img src=\"www/img/auto.png\" height=\"40px\"></center></span></td>\n" +
                     "\t\t\t\t\t<td width=\"25%\"><span onclick=\"subirTono()\"><center><img src=\"www/img/flecha_arriba_normal.png\" height=\"40px\"></center></span></td>\n" +
                     "\t\t\t\t\t<td width=\"25%\"><span onclick=\"bajarTono()\"><center><img src=\"www/img/flecha_abajo_normal.png\" height=\"40px\"></center></span></td>\n" +

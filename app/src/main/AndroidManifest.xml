@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -31,7 +32,9 @@
         <activity android:name=".EliminarCuenta" />
         <activity android:name=".DetalleChordActivity" />
         <activity android:name=".MensajesActivity" />
-        <activity android:name=".UserProfileActivity"></activity>
+        <activity android:name=".UserProfileActivity" />
+        <activity android:name=".EnviarMensajeActivity"></activity>
+
     </application>
 
 </manifest>

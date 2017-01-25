@@ -128,6 +128,8 @@ public class LoginFragment extends Fragment {
                 if (email != null || password != null) {
                     String strUsuario = "{\"email\":\"" + email + "\",\"password\":\"" + password + "\"}";
                     res = conexion.loginUsuario(strUsuario);
+
+
                 }
             } else {
                 res = "nc";
@@ -172,6 +174,9 @@ public class LoginFragment extends Fragment {
 
         String res;
         String resFav="";
+        String statusDonationStr;
+        Response donacion;
+        Gson gson = new Gson();
 
 
         @Override
@@ -179,6 +184,11 @@ public class LoginFragment extends Fragment {
             if(usuarioLog!=null){
                 res = conexion.cargarChordsById(usuarioLog.getId()+"");
                 resFav = conexion.cargarChordsFavoritosById(usuarioLog.getId()+"");
+                statusDonationStr = Conexion.getInstancia().getStatusDonation(usuarioLog.getId());
+                if(statusDonationStr!=null){
+                    donacion = gson.fromJson(statusDonationStr,Response.class);
+                }
+                BaseDeDatos.setEstadoDonacion(getActivity(),Integer.parseInt(donacion.getMessage()));
                 String resImg = conexion.getImagenUsuario(usuarioLog.getId());
                 if(res!=null) {
                     if(resImg!=null){

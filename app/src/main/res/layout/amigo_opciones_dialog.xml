@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <RelativeLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:padding="24dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/que_hacer"
+            android:id="@+id/titulo"
+            android:layout_marginBottom="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enviar_mensaje"
+            android:id="@+id/btnAmigoEnviarMensaje"
+            style="@style/AppTheme.Button.NoBg"
+            android:textColor="@color/btnBlueNormal"
+            android:textStyle="bold"
+            android:layout_below="@+id/titulo" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ver_perfil"
+            android:layout_below="@+id/btnAmigoEnviarMensaje"
+            android:id="@+id/btnAmigoVerPerfil"
+            style="@style/AppTheme.Button.NoBg"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/eliminar_amigo"
+            android:layout_below="@+id/btnAmigoVerPerfil"
+            android:id="@+id/btnAmigoEliminarDeMisAmigos"
+            style="@style/AppTheme.Button.NoBg"
+            android:textColor="@color/colorPrimaryButtonWarningFocus"
+            android:textStyle="bold"
+            />
+
+
+    </RelativeLayout>
+</ScrollView>
